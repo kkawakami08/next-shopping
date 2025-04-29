@@ -3,9 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { paths } from "@/lib/constants";
 import ProductPrice from "./product-price";
+import { Product } from "@/types";
 
 interface ProductCardProps {
-  product: any;
+  product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
