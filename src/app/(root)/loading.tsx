@@ -1,8 +1,8 @@
-import { Loader } from "lucide-react";
+import LoadingSpinner from "@/components/loading-spinner";
 const LoadingPage = () => {
   return (
     <div className="h-screen flex items-center justify-center">
-      <Loader className="animate-spin size-24" />
+      <LoadingSpinner className="size-24" />
     </div>
   );
 };
