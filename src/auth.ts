@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/db/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcrypt-ts-edge";
+import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -10,7 +11,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: "/sign-in",
   },
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
     maxAge: 30 * 24 * 60 * 60,
   },
   adapter: PrismaAdapter(prisma),
@@ -55,6 +56,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async session({ session, user, trigger, token }: any) {
+      //set user ID from token
+      session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.name = token.name;
+
+      //if there is an update, set the user name
+      if (trigger === "update") {
+        session.user.name = user.name;
+      }
+
+      return session;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async jwt({ token, user }: any) {
       //assign user fields to the token
       if (user) {
@@ -76,19 +91,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return token;
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async session({ session, user, trigger, token }: any) {
-      //set user ID from token
-      session.user.id = token.sub;
-      session.user.role = token.role;
-      session.user.name = token.name;
-
-      //if there is an update, set the user name
-      if (trigger === "update") {
-        session.user.name = user.name;
-      }
-
-      return session;
-    },
+    ...authConfig.callbacks,
   },
 });

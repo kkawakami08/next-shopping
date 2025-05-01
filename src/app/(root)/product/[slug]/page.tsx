@@ -2,10 +2,10 @@ import { getProductBySlug } from "@/lib/actions/product.actions";
 import { notFound } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ProductPrice from "@/components/shared/product/product-price";
 import ProductImages from "@/components/shared/product/product-images";
+import AddToCart from "@/components/shared/product/add-to-cart";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -19,12 +19,11 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 
   return (
     <>
-      <section>
-        <div className="grid grid-cols-1 md:grid-cols-5">
-          {/* Images Column */}
-          <ProductImages images={product.images} />
-          <div className="col-span-2">{/* Image Component */}</div>
-          {/* Details Column */}
+      <section className="">
+        <div className="grid grid-cols-1 md:grid-cols-5 ">
+          <div className="col-span-2">
+            <ProductImages images={product.images} />
+          </div>
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
               <p>
@@ -46,7 +45,6 @@ const ProductPage = async ({ params }: ProductPageProps) => {
               <p>{product.description}</p>
             </div>
           </div>
-          {/* Action Column */}
           <div>
             <Card>
               <CardContent className="p-4">
@@ -65,8 +63,17 @@ const ProductPage = async ({ params }: ProductPageProps) => {
                   )}
                 </div>
                 {product.stock > 0 && (
-                  <div className="flex">
-                    <Button className="w-full">Add to Cart</Button>
+                  <div className="flex ">
+                    <AddToCart
+                      item={{
+                        productId: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: product.price,
+                        qty: 1,
+                        image: product.images![0],
+                      }}
+                    />
                   </div>
                 )}
               </CardContent>
