@@ -20,6 +20,14 @@ export const signUpDefaultValues = {
   name: "",
 };
 
+export const shippingAddressDefaultValues = {
+  fullName: "",
+  streetAddress: "",
+  city: "",
+  postalCode: "",
+  country: "",
+};
+
 export const paths = {
   home: () => {
     return `/`;
@@ -32,6 +40,12 @@ export const paths = {
   },
   signUp: () => {
     return `/sign-up`;
+  },
+  shipping: () => {
+    return `/shipping-address`;
+  },
+  paymentMethod: () => {
+    return `/payment-method`;
   },
   product: (slug: string) => {
     return `/product/${slug}`;

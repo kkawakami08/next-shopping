@@ -6,11 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 //format number with decimal places
-export const formatNumberWithDecimal = (num: number): string => {
+export function formatNumberWithDecimal(num: number): string {
   const [int, decimal] = num.toString().split(".");
-
   return decimal ? `${int}.${decimal.padEnd(2, "0")}` : `${int}.00`;
-};
+}
 
 // convert prisma object into a regular JS object
 export function convertToPlainObject<T>(value: T): T {
@@ -38,5 +37,33 @@ export const formatError = (error: any) => {
     return typeof error.message === "string"
       ? error.message
       : JSON.stringify(error.message);
+  }
+};
+
+// Round number to 2 decimal places
+export function round2(value: number | string) {
+  if (typeof value === "number") {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
+  } else if (typeof value === "string") {
+    return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+  } else {
+    throw new Error("Value is not a number or string");
+  }
+}
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
+  currency: "USD",
+  style: "currency",
+  minimumFractionDigits: 2,
+});
+
+//format currency using the formatter above
+export const formatCurrency = (amount: number | string | null) => {
+  if (typeof amount === "number") {
+    return CURRENCY_FORMATTER.format(amount);
+  } else if (typeof amount === "string") {
+    return CURRENCY_FORMATTER.format(Number(amount));
+  } else {
+    return "NaN";
   }
 };
