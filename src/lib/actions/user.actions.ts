@@ -3,6 +3,7 @@ import {
   ShippingAddressSchema,
   SignInFormSchema,
   SignUPFormSchema,
+  PaymentMethodSchema,
 } from "../validators";
 import { hashSync } from "bcrypt-ts-edge";
 import { auth, signIn, signOut } from "@/auth";
@@ -11,6 +12,7 @@ import { prisma } from "@/db/prisma";
 import { formatError } from "../utils";
 import { ShippingAddress } from "@/types";
 import { getMyCart } from "./cart.actions";
+import { z } from "zod";
 
 export const signInWithCredentials = async (
   _prevState: unknown,
@@ -136,5 +138,74 @@ export const updateUserAddress = async (data: ShippingAddress) => {
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
+  }
+};
+
+export const updateUserPaymentMethod = async (
+  data: z.infer<typeof PaymentMethodSchema>
+) => {
+  try {
+    const session = await auth();
+    const currentUser = await prisma.user.findFirst({
+      where: {
+        id: session?.user?.id,
+      },
+    });
+
+    if (!currentUser) throw new Error("User not found");
+
+    const paymentMethod = PaymentMethodSchema.parse(data);
+
+    await prisma.user.update({
+      where: {
+        id: currentUser.id,
+      },
+      data: {
+        paymentMethod: paymentMethod.type,
+      },
+    });
+
+    return {
+      success: true,
+      message: "User payment method updated successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
+};
+
+export const updateProfile = async (user: { name: string; email: string }) => {
+  try {
+    const session = await auth();
+
+    const currentUser = await prisma.user.findFirst({
+      where: {
+        id: session?.user?.id,
+      },
+    });
+
+    if (!currentUser) throw new Error("User not found");
+
+    await prisma.user.update({
+      where: {
+        id: currentUser.id,
+      },
+      data: {
+        name: user.name,
+      },
+    });
+
+    return {
+      success: true,
+      message: "User updated successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
   }
 };

@@ -28,6 +28,15 @@ export const shippingAddressDefaultValues = {
   country: "",
 };
 
+export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
+  ? process.env.PAYMENT_METHODS.split(", ")
+  : ["PayPal", "Stripe", "CashOnDelivery"];
+
+export const DEFAULT_PAYMENT_METHOD =
+  process.env.DEFAULT_PAYMENT_METHOD || "PayPal";
+
+export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 12;
+
 export const paths = {
   home: () => {
     return `/`;
@@ -47,7 +56,19 @@ export const paths = {
   paymentMethod: () => {
     return `/payment-method`;
   },
+  placeOrder: () => {
+    return `/place-order`;
+  },
   product: (slug: string) => {
     return `/product/${slug}`;
+  },
+  order: (insertedOrderId: string) => {
+    return `/order/${insertedOrderId}`;
+  },
+  profile: () => {
+    return `/user/profile`;
+  },
+  userOrders: () => {
+    return `/user/orders`;
   },
 };
