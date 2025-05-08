@@ -71,4 +71,19 @@ export const paths = {
   userOrders: () => {
     return `/user/orders`;
   },
+  overview: () => {
+    return `/admin/overview`;
+  },
+  adminProducts: () => {
+    return `/admin/products`;
+  },
+  adminOrders: () => {
+    return `/admin/orders`;
+  },
+  adminUsers: () => {
+    return `/admin/users`;
+  },
+  unauthorized: () => {
+    return `/unauthorized`;
+  },
 };

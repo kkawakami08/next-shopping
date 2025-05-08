@@ -69,6 +69,12 @@ export const formatCurrency = (amount: number | string | null) => {
   }
 };
 
+const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
+
+export const formatNumber = (number: number) => {
+  return NUMBER_FORMATTER.format(number);
+};
+
 // shorten uuid
 export const formatId = (id: string) => {
   return `..${id.substring(id.length - 6)}`;
