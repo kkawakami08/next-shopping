@@ -120,3 +120,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* uploadthing button text override */
+html.dark .text-white {
+  color: #ffffff !important;
+}
+.text-white {
+  color: #000000 !important;
+}

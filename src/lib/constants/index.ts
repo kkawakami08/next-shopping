@@ -37,6 +37,21 @@ export const DEFAULT_PAYMENT_METHOD =
 
 export const PAGE_SIZE = Number(process.env.PAGE_SIZE) || 12;
 
+export const productDefaultValues = {
+  name: "",
+  slug: "",
+  category: "",
+  images: [],
+  brand: "",
+  description: "",
+  price: "0",
+  stock: 0,
+  rating: "0",
+  numReviews: "0",
+  isFeatured: false,
+  banner: null,
+};
+
 export const paths = {
   home: () => {
     return `/`;
@@ -76,6 +91,12 @@ export const paths = {
   },
   adminProducts: () => {
     return `/admin/products`;
+  },
+  adminProductPage: (productId: string) => {
+    return `/admin/products/${productId}`;
+  },
+  adminCreateProduct: () => {
+    return `/admin/products/create`;
   },
   adminOrders: () => {
     return `/admin/orders`;

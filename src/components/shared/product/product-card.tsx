@@ -15,7 +15,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <CardHeader className="p-0 items-center">
         <Link href={paths.product(product.slug)}>
           <Image
-            src={product.images[0]}
+            src={product.images[0] || ""}
             alt={product.name}
             height={300}
             width={300}
