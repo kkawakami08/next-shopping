@@ -52,6 +52,10 @@ export const productDefaultValues = {
   banner: null,
 };
 
+export const USER_ROLES = process.env.USER_ROLES
+  ? process.env.USER_ROLES.split(", ")
+  : ["admin", "user"];
+
 export const paths = {
   home: () => {
     return `/`;
@@ -103,6 +107,9 @@ export const paths = {
   },
   adminUsers: () => {
     return `/admin/users`;
+  },
+  adminUserPage: (userId: string) => {
+    return `/admin/users/${userId}`;
   },
   unauthorized: () => {
     return `/unauthorized`;

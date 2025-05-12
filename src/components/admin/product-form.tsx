@@ -235,7 +235,7 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
             render={() => (
               <FormItem className="w-full">
                 <FormLabel>Images</FormLabel>
-                <Card>
+                <Card className="bg-primary dark:bg-secondary">
                   <CardContent className="space-y-2  min-h-48">
                     <div className="flex space-x-2">
                       {images.map((image: string) => (
@@ -270,7 +270,7 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
         <div className="">
           {/* isFeatured */}
           Featured Product
-          <Card>
+          <Card className="bg-primary dark:bg-secondary">
             <CardContent className="space-y-2">
               <FormField
                 control={form.control}
@@ -281,7 +281,7 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        className="cursor-pointer"
+                        className="peer cursor-pointer border-black text-black "
                       />
                     </FormControl>
                     <FormLabel>Is Featured?</FormLabel>
