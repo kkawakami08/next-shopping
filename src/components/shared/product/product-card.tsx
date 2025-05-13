@@ -11,8 +11,8 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader className="p-0 items-center">
+    <Card className="w-full max-w-sm flex ">
+      <CardHeader className="p-0 justify-center flex ">
         <Link href={paths.product(product.slug)}>
           <Image
             src={product.images[0] || ""}

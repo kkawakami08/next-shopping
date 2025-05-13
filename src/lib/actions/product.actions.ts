@@ -152,3 +152,26 @@ export const updateProduct = async (
     };
   }
 };
+
+export const getAllCategories = async () => {
+  const data = await prisma.product.groupBy({
+    by: ["category"],
+    _count: true,
+  });
+
+  return data;
+};
+
+export const getFeaturedProducts = async () => {
+  const data = await prisma.product.findMany({
+    where: {
+      isFeatured: true,
+    },
+    take: 4,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return convertToPlainObject(data);
+};

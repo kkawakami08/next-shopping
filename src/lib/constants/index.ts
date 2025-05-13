@@ -78,6 +78,9 @@ export const paths = {
   placeOrder: () => {
     return `/place-order`;
   },
+  searchCategory: (category: string) => {
+    return `/search?category=${category}`;
+  },
   product: (slug: string) => {
     return `/product/${slug}`;
   },

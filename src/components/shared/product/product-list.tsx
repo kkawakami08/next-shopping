@@ -12,9 +12,11 @@ const ProductList = ({ data, title, limit }: ProductListProps) => {
 
   return (
     <div className="my-10">
-      <h2 className="mb-4 font-bold text-2xl">{title}</h2>
+      <h2 className="mb-4 font-bold text-2xl text-center md:text-left">
+        {title}
+      </h2>
       {data.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
           {limitedData.map((product: Product) => (
             <ProductCard product={product} key={product.slug} />
           ))}

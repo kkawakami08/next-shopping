@@ -25,13 +25,13 @@ export default function AdminLayout({
             </Link>
             <MainNav className="mx-6" />
             <div className="ml-auto items-center flex space-x-4">
-              <div>
+              {/* <div>
                 <Input
                   type="search"
                   placeholder="Search..."
                   className="md:w-[100px] lg:w-[300px]"
                 />
-              </div>
+              </div> */}
               <Menu />
             </div>
           </div>
