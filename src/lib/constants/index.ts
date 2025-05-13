@@ -60,6 +60,9 @@ export const paths = {
   home: () => {
     return `/`;
   },
+  search: () => {
+    return `/search`;
+  },
   cart: () => {
     return `/cart`;
   },
