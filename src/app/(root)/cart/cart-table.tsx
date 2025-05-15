@@ -34,9 +34,13 @@ const CartTable = ({ cart }: CartTableProps) => {
     <>
       <h1 className="py-4 text-2xl font-semibold">Shopping Cart</h1>
       {!cart || cart.items.length === 0 ? (
-        <div>
-          Cart is empty.
-          <Link href={paths.home()}>Go Shopping</Link>
+        <div className="flex flex-col gap-2 ">
+          Cart is empty
+          <Button asChild className="w-40">
+            <Link href={paths.home()}>
+              Go Shopping! <ArrowRight />
+            </Link>
+          </Button>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">

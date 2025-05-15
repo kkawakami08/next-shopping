@@ -29,16 +29,19 @@ import {
 import { toast } from "sonner";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import StripePayment from "./stripe-payment";
 
 interface OrderDetailsTableProps {
   order: Order;
   paypalClientId: string;
+  stripeClientSecret: string | null;
   isAdmin: boolean;
 }
 
 const OrderDetailsTable = ({
   order,
   paypalClientId,
+  stripeClientSecret,
   isAdmin,
 }: OrderDetailsTableProps) => {
   const {
@@ -244,6 +247,16 @@ const OrderDetailsTable = ({
                   </PayPalScriptProvider>
                 </div>
               )}
+
+              {/* Stripe Payment */}
+              {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
+                <StripePayment
+                  priceInCents={Number(order.totalPrice) * 100}
+                  orderId={order.id}
+                  clientSecret={stripeClientSecret}
+                />
+              )}
+
               {/* Cash on Delivery */}
               {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
                 <MarkAsPaidButton />
