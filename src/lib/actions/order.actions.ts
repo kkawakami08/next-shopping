@@ -8,10 +8,11 @@ import { getUserById } from "./user.actions";
 import { PAGE_SIZE, paths } from "../constants";
 import { InsertOrderSchema } from "../validators";
 import { prisma } from "@/db/prisma";
-import { CartItem, PaymentResult } from "@/types";
+import { CartItem, PaymentResult, ShippingAddress } from "@/types";
 import { paypal } from "../paypal";
 import { revalidatePath } from "next/cache";
 import { Prisma } from "@/generated/prisma";
+import { sendPurchaseReceipt } from "@/email";
 
 export const createOrder = async () => {
   try {
@@ -276,6 +277,14 @@ export const updateOrderToPaid = async ({
   });
 
   if (!updatedOrder) throw new Error("Order not found");
+
+  sendPurchaseReceipt({
+    order: {
+      ...updatedOrder,
+      shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
+      paymentResult: updatedOrder.paymentResult as PaymentResult,
+    },
+  });
 };
 
 export const getMyOrders = async ({

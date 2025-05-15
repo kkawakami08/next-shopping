@@ -32,7 +32,7 @@ import { Button } from "@/components/ui/button";
 import StripePayment from "./stripe-payment";
 
 interface OrderDetailsTableProps {
-  order: Order;
+  order: Omit<Order, "paymentResult">;
   paypalClientId: string;
   stripeClientSecret: string | null;
   isAdmin: boolean;
