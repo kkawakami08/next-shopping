@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { paths } from "@/lib/constants";
 
 // Static target date (replace with desired date)
 const TARGET_DATE = new Date("2025-05-29T00:00:00");
@@ -105,7 +106,7 @@ const DealCountdown = () => {
         </ul>
         <div className="text-center">
           <Button asChild>
-            <Link href="/search">View Products</Link>
+            <Link href={paths.search()}>View Products</Link>
           </Button>
         </div>
       </div>
